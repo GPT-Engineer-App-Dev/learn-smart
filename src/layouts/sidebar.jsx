@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { CircleUser, Menu, Package2 } from "lucide-react";
+import { CircleUser, Menu, Package2, Search } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navItems } from "../App";
 
@@ -20,7 +20,9 @@ const Layout = () => {
       <div className="flex flex-col">
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <MobileSidebar />
-          <div className="w-full flex-1">{/* Add nav bar content here! */}</div>
+          <div className="w-full flex-1 flex items-center justify-center">
+            <SearchBar />
+          </div>
           <UserDropdown />
         </header>
         <main className="flex-grow p-4 overflow-auto">
@@ -73,6 +75,7 @@ const MobileSidebar = () => (
         </NavLink>
         {navItems.map((item) => (
           <SidebarNavLink key={item.to} to={item.to}>
+            {item.icon}
             {item.title}
           </SidebarNavLink>
         ))}
@@ -92,8 +95,8 @@ const UserDropdown = () => (
     <DropdownMenuContent align="end">
       <DropdownMenuLabel>My Account</DropdownMenuLabel>
       <DropdownMenuSeparator />
+      <DropdownMenuItem>Profile</DropdownMenuItem>
       <DropdownMenuItem>Settings</DropdownMenuItem>
-      <DropdownMenuItem>Support</DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem>Logout</DropdownMenuItem>
     </DropdownMenuContent>
@@ -112,6 +115,17 @@ const SidebarNavLink = ({ to, children }) => (
   >
     {children}
   </NavLink>
+);
+
+const SearchBar = () => (
+  <div className="relative w-full max-w-md">
+    <input
+      type="text"
+      placeholder="Search..."
+      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+    />
+    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+  </div>
 );
 
 export default Layout;
